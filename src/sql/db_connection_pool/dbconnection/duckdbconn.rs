@@ -171,7 +171,7 @@ impl DuckDbConnection {
     ///
     /// See `DuckDBAttachments::attach` for more information.
     pub fn attach(conn: &Connection, attachments: &Option<Arc<DuckDBAttachments>>) -> Result<()> {
-        conn.execute("INSTALL spatial; LOAD spatial;").boxed()?;
+        conn.execute("INSTALL spatial; LOAD spatial;", []).boxed()?;
         if let Some(attachments) = attachments {
             attachments.attach(conn)?;
         }
