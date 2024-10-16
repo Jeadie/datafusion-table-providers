@@ -222,6 +222,7 @@ impl SyncDbConnection<r2d2::PooledConnection<DuckdbConnectionManager>, DuckDBPar
     }
 
     fn get_schema(&self, table_reference: &TableReference) -> Result<SchemaRef, super::Error> {
+        Self::attach(&self.conn, &self.attachments).unwrap();
         let table_str = if is_table_function(table_reference) {
             table_reference.to_string()
         } else {
